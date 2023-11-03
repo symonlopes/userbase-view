@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+        content="528442786170-4shvqvgeo66md4her7igdathqcdeatdf.apps.googleusercontent.com">
+    <title>Document Title</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        function onSignIn(googleUser) {
+            console.log(googleUser)
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <!-- Your navigation here -->
+        </nav>
+    </header>
+
+    <main>
+        <!-- <img src="/img/logo.jpg" />  -->
+        <div id="app">{{ message }}
+
+            <button onclick="test()">Greet</button>
+
+        </div>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    </main>
+
+    <aside>
+        <!-- Sidebar or complementary content -->
+    </aside>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+    <script>
+
+
+        function test() {
+            alert('Button clicked!');
+        }
+
+        const { createApp, ref } = Vue
+
+        createApp({
+            setup() {
+                const message = ref('Hello vue!')
+                return {
+                    message
+                }
+
+            }
+        }).mount('#app')
+
+
+
+    </script>
+
+</body>
+
+</html>
