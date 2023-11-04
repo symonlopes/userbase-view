@@ -1,74 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-client_id"
-        content="528442786170-4shvqvgeo66md4her7igdathqcdeatdf.apps.googleusercontent.com">
-    <title>Document Title</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <title>LOGIN</title>
     <script>
-        function onSignIn(googleUser) {
-            console.log(googleUser)
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        function teste(jwt) {
+            fetch('http://localhost:8080/google/front-received-jwt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jwt)
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            }).then(data => {
+                console.log('Success:', data);
+            }).catch((error) => {
+                console.error('Error:', error);
+            });
         }
     </script>
 </head>
 
 <body>
-    <header>
-        <nav>
-            <!-- Your navigation here -->
-        </nav>
-    </header>
+    <button onclick="teste()">DO</button>
+    <div id="g_id_onload" data-client_id="528442786170-4shvqvgeo66md4her7igdathqcdeatdf.apps.googleusercontent.com"
+        data-callback="teste" data-auto_prompt="false">
+    </div>
 
-    <main>
-        <!-- <img src="/img/logo.jpg" />  -->
-        <div id="app">{{ message }}
-
-            <button onclick="test()">Greet</button>
-
-        </div>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    </main>
-
-    <aside>
-        <!-- Sidebar or complementary content -->
-    </aside>
-
-    <footer>
-        <!-- Footer content -->
-    </footer>
-    <script>
-
-
-        function test() {
-            alert('Button clicked!');
-        }
-
-        const { createApp, ref } = Vue
-
-        createApp({
-            setup() {
-                const message = ref('Hello vue!')
-                return {
-                    message
-                }
-
-            }
-        }).mount('#app')
-
-
-
-    </script>
-
+    <!-- <div id="g_id_onload" data-client_id="528442786170-4shvqvgeo66md4her7igdathqcdeatdf.apps.googleusercontent.com"
+        data-login_uri="http://localhost:8080/google/exemplo"  data-auto_prompt="false">
+    </div> -->
+    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
+        data-shape="rectangular" data-logo_alignment="left">
+    </div>
 </body>
 
 </html>
