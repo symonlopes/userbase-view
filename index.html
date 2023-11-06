@@ -8,7 +8,7 @@
     <title>LOGIN</title>
     <script>
         function teste(jwt) {
-            fetch('http://localhost:8080/google/front-received-jwt', {
+            fetch('http://localhost:8080/google/oauth2/auth', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
